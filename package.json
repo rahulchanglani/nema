@@ -1,0 +1,30 @@
+{
+	"name": "nema_learning",
+	"version": "1.0.0",
+	"description": "MEAN web app for img processing/uploading/storing, MEA usage, schedulers, etc.",
+	"author": "rahulchanglani",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"license": "UNLICENSED",
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/rahulchanglani/nema.git"
+	},
+	"dependencies": {
+		"express": "^4.13.3",
+		"morgan": "^1.7.0",
+		"body-parser": "^1.13.3",
+		"method-override": "^2.3.0",
+		"mongoose": "^4.1.2",
+		"path": "^0.12.7",
+		"glob": "^5.0.3",
+    	"image-resizer": "latest",
+    	"fs": "latest",
+    	"node-schedule": "^1.2.0",
+    	"sharp": "^0.11.3",
+    	"promise": "^7.1.1",
+    	"compression": "^1.5.2",
+    	"uuid": "^2.0.1"
+	}
+}
