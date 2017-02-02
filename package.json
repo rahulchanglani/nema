@@ -28,6 +28,7 @@
     	"compression": "^1.5.2",
     	"uuid": "^2.0.1",
     	"async": "^1.5.2",
-    	"chalk": "latest"
+    	"chalk": "latest",
+    	"express-device": "latest"
 	}
 }

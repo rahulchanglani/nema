@@ -16,7 +16,9 @@ var express        = require('express'),
 	config 		   = require('./config/config'),
 	async		   = require('async'),
 	schedule 	   = require('node-schedule'),
-	chalk		   = require('chalk');
+	chalk		   = require('chalk'),
+	device 		   = require('express-device');
+
 
 // *** mongoose connection db ***
 mongoose.connect(config.db);
@@ -43,25 +45,42 @@ var app = express();
 http://expressjs.com/api#req.secure). This allows us
 to know whether the request was via http or https.---*/
 
-app.use(function(req, res, next) {
-	console.log('secure or not ??',req.secure);
-	console.log('\n hostname---',req.hostname);
-	//console.log('next()....',next);	
+// app.use(function(req, res, next) {
+// 	console.log('secure or not ??',req.secure);
+// 	console.log('\n hostname---',req.hostname);
+// 	//console.log('next()....',next);	
 
-	if (req.hostname == 'm.localhost') {
-    	console.log('\n new hostname---',req.hostname);
-    	res.redirect('http://medibox.in');
+//     if (req.secure || req.hostname.indexOf('api') == 0) {
+//         // request was via https, continue
+//         next();
+//     } else {
+//         // request was via http, so redirect to https
+//         res.redirect('https://' + (req.hostname.indexOf('www') != 0 ? 'www.' : '') + req.headers.host.split(':')[0] + ':' + config.portSecure + req.url);
+//     }
+
+
+//  //    if (req.hostname == 'm.localhost') {
+//  //    	console.log('\n redirect to mobile website---');
+//  //    	res.redirect('http://m.cricbuzz.com/');
+//  //    }
+//  //    next();    
+// });
+
+
+
+// --- express detect device 
+
+app.use(device.capture());
+
+app.get('/',function(req, res, next) {
+  //console.log('~~~~~~',JSON.stringify(req.device));
+  console.log('*******',req.device.type.toUpperCase());
+
+  	if (req.device.type.toUpperCase() != 'DESKTOP' && req.device.type.toUpperCase() == 'PHONE') {
+    	//console.log('\n redirect to mobile website---');
+    	res.redirect('http://m.cricbuzz.com/');
     }
-    
-    // if (req.secure || req.hostname.indexOf('api') == 0) {
-    //     // request was via https, continue
-    //     next();
-    // } else {
-    //     // request was via http, so redirect to https
-    //     res.redirect('https://' + (req.hostname.indexOf('www') != 0 ? 'www.' : '') + req.headers.host.split(':')[0] + ':' + config.portSecure + req.url);
-    // }
-
-    
+    next();
 });
 
 
